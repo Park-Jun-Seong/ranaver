@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://veta.naver.com/fxshow?su=SU10306&sid1=103&sid2=245&oid=023 -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>AD</title>
+    <link rel="stylesheet" type="text/css" href="./common.min.css">
+    <script type="text/javascript" src="./jquery-1.8.0.min.js.다운로드"></script>
+    <script type="text/javascript" src="./pc.veta.core.min.js.다운로드"></script>
+</head>
+<body marginwidth="0" marginheight="0">
+<h5 style="font-size: 0">
+    <a href="https://siape.veta.naver.com/fxclick?eu=EU10039795&amp;calp=-&amp;oj=sLyIhXug91hMtx5RDnZAVEEY49mTu9FcBazN69ObGo05i5fs%2FyhaQkhv0BwuJLF8YnECt1hLVllg40mLPchi3DuqpgIIMEUlNcyY93WzNaQ15Xwr%2B%2FI6GzXttrYFGtN%2B&amp;ac=8059795&amp;src=4325754&amp;br=3127014&amp;evtcd=P901&amp;x_ti=1108&amp;tb=&amp;oid=023&amp;sid1=103&amp;sid2=245&amp;rk=498be5bb47634661cbef6c385c4a95e9&amp;eltts=vlPreR3FxUlb95P2A%2Bwjjg%3D%3D&amp;lu=&amp;brs=Y&amp;" target="_blank" style="display: block">
+        <img id="adImage" width="300" height="250" title="[광고]첫 솔로앨범 기념! 최강창민과 Chocolate 공장 4월 6일 오후 7시 V LIVE" alt="[광고]첫 솔로앨범 기념! 최강창민과 Chocolate 공장 4월 6일 오후 7시 V LIVE" border="0">
+    </a>
+</h5>
+<script type="text/javascript">
+    try {
+        document.domain = 'naver.com';
+
+        $(document).ready(function() {
+            var uId = window.frameElement.id;
+            var file1 = ('https' === 'http') ? 'https://ssl.pstatic.net/tveta/libs/1283/1283451/e607878e9453a7679731_20200402150036199.jpg' : 'https://ssl.pstatic.net/tveta/libs/1283/1283451/e607878e9453a7679731_20200402150036199.jpg';
+
+            // set img src
+            document.getElementById('adImage').setAttribute('src', file1);
+
+            var activeview = new naver_corp_da.ActiveViewIFRAME({
+                uId: uId,
+                activeViewPercentage: 0.5,
+                activeViewTime: 1000,
+                callbackIn: function () {
+                    try {
+                        var target = parent.document.getElementById(uId);
+                        var eid = (target) ? ((parseInt(target.getBoundingClientRect().height || target.offsetHeight, 10) === 0) ? 'V000' : 'V900') : 'V000';
+                    } catch (e) {
+                        eid = 'V000';
+                    } finally {
+                        var url = 'https://siape.veta.naver.com/fxview?eu=EU10039795&calp=-&oj=sLyIhXug91hMtx5RDnZAVEEY49mTu9FcBazN69ObGo05i5fs%2FyhaQkhv0BwuJLF8YnECt1hLVllg40mLPchi3DuqpgIIMEUlNcyY93WzNaQ15Xwr%2B%2FI6GzXttrYFGtN%2B&ac=8059795&src=4325754&evtcd=V900&x_ti=1108&tb=&oid=023&sid1=103&sid2=245&rk=498be5bb47634661cbef6c385c4a95e9&eltts=vlPreR3FxUlb95P2A%2Bwjjg%3D%3D&brs=Y&&eid=' + eid;
+                        var util = naver_corp_da.Util ? new naver_corp_da.Util() : new NBP_CORP.Nimp();
+
+                        if (eid === 'V900') {
+                            $(activeview).trigger('removeEvent');
+                        }
+
+                        if (util !== null) {
+                            util.log(url);
+                        }
+                    }
+                }
+            });
+
+            activeview.init();
+
+
+            window.callbackForSPA = {
+                removeADEventListener: function () {
+                    if (activeview !== undefined) {
+                        activeview.clearActiveView();
+                    }
+                }
+            };
+        });
+    } catch (e) {
+
+    }
+</script>
+
+</body></html>

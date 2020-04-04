@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!-- saved from url=(0303)file:///C:/Users/%EB%B0%95%EC%A4%80%EC%84%B1/Pictures/%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8%20%EB%AA%A8%EC%9D%8C/%EB%B0%80%ED%99%94%EB%B6%80%EB%A6%AC/%EB%9C%B8%EB%B6%80%EA%B8%B0/[%EC%86%A1%EC%84%B1%EB%AF%BC%EB%B3%91%EC%8B%A0]_%20%EB%84%A4%EC%9D%B4%EB%B2%84%20%EB%89%B4%EC%8A%A4_files/fxshow.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>NAVER</title>
+    <script type="text/javascript" src="./pc.veta.core.min.js(1).다운로드"></script>
+    <script type="text/javascript" src="./jquery-1.8.0.min.js(1).다운로드"></script>
+</head>
+<body marginwidth="0" marginheight="0">
+<script>
+    document.domain = "naver.com";
+
+    try {
+        $(document).ready(function () {
+            initAd();
+        });
+
+        var uId = window.frameElement.id;
+        var tarEl = null;
+        var timeOut = null;
+
+        function initAd() {
+            if (!parent.window.getComputedStyle) {
+                parent.window.daGetComputedStyle = function (el) {
+                    return el.currentStyle;
+                }
+            } else {
+                parent.window.daGetComputedStyle = parent.window.getComputedStyle;
+            }
+
+            tarEl = $("#" + uId, parent.document);
+            $(parent.window).bind("scroll resize", checkViewPortHandler);
+            checkViewPortHandler();
+        }
+
+        // 유효노출 시 parent의 display is none, visibility is hidden과 광고 dom의 null 여부를 판단한다.
+        function validActiveView(sDivId) {
+            var judgeTheSituation;
+            try {
+                judgeTheSituation = [9, 9]; // index 0: parents display check, index 1: parents visibility hidden check, index 2: da dom null
+                var target = parent.document.getElementById(sDivId);
+
+                if (target === null) {
+                    judgeTheSituation[1] = 0;
+                } else {
+                    if (parent.window.daGetComputedStyle(target, null).display.toLowerCase() === 'none' || parent.window.daGetComputedStyle(target, null).visibility.toLowerCase() === 'hidden') {
+                        judgeTheSituation[1] = 0;
+                    } else {
+                        judgeTheSituation[1] = 1;
+                    }
+
+                    // 광고와 관련된 Elements 순회
+                    checkParents(target.parentNode, function action(el) {
+                        if (el.nodeType == 1) {
+                            judgeTheSituation[0] = (judgeTheSituation[0] === 1 || judgeTheSituation[0] === 9) ? ((parent.window.daGetComputedStyle(el, null).display.toLowerCase() === 'none') ? 0 : 1) : judgeTheSituation[0];
+
+                            judgeTheSituation[0] = (judgeTheSituation[0] === 1 || judgeTheSituation[0] === 9) ? ((parent.window.daGetComputedStyle(el, null).visibility.toLowerCase() === 'hidden') ? 0 : 1) : judgeTheSituation[0];
+                        }
+                    });
+                }
+            } catch (e) {
+                judgeTheSituation = [0, 0];
+            }
+
+            return judgeTheSituation;
+        }
+
+        // target parents 순회
+        function checkParents(target, action) {
+            while (target) {
+                action(target);
+                target = target.parentNode;
+            }
+        }
+
+        function checkViewPortHandler() {
+            clearTimeout(timeOut);
+
+            timeOut = setTimeout(function () {
+                checkViewPort(tarEl, function () {
+                    try {
+                        var eid = '';
+                        if (validActiveView(uId).join('') === '11') {
+                            eid = 'V900';
+                            $(parent.window).unbind("scroll resize", checkViewPortHandler);
+                        } else {
+                            eid = 'V000';
+                        }
+
+                        var url = "https://siape.veta.naver.com/fxview?eu=EU10000124&calp=-&oj=iLnPO8XT3buCTYQ7i8DawUEY49mTu9FcBazN69ObGo05i5fs%2FyhaQkhv0BwuJLF8YnECt1hLVllg40mLPchi3DuqpgIIMEUlYABSfiucUMeyPgiy12DAYTXttrYFGtN%2B&ac=7457610&src=3061360&evtcd=V900&x_ti=834&tb=&oid=023&sid1=103&sid2=245&rk=7c535f106942990ac048ed19c19c8261&eltts=ubtZDNgYc0tA8X8ZEPBEKg%3D%3D&brs=Y&&eid=" + eid;
+                        var oNimp = new Nimp([url]);
+                        oNimp.log(1);
+                    } catch (e) {
+                    }
+                });
+            }, 1000);
+        }
+
+        function checkViewPort(elem, callbackIn) {
+            var flagIn = beIntoViewPort(elem, 0.5);
+
+            if (flagIn) {
+                callbackIn();
+            }
+        }
+
+        function beIntoViewPort(elem, ratio) {
+            if (!elem) return false;
+            if (validActiveView(uId).join('') !== '11') return false;
+
+            ratio = (ratio) ? ratio : 1.0;
+            var eW = elem.width();
+            var eH = elem.height();
+
+            var viewportTop = $(parent.window).scrollTop();
+            var viewportBottom = $(parent.window).scrollTop() + $(parent.window).innerHeight();
+            var viewportLeft = $(parent.window).scrollLeft();
+            var viewportRight = $(parent.window).scrollLeft() + $(parent.window).innerWidth();
+
+            var f1 = (viewportTop <= (elem.offset().top + (eH * (1.0 - ratio))));
+            var f2 = (viewportBottom >= elem.offset().top + (eH * ratio));
+            var f3 = (viewportLeft <= elem.offset().left + (eW * (1.0 - ratio)));
+            var f4 = (viewportRight >= elem.offset().left + (eW * ratio));
+
+            return (f1 && f2) && (f3 && f4);
+        }
+    } catch (e) {
+
+    }
+</script>
+
+<div style="display: none;"></div></body></html>
